@@ -13,7 +13,6 @@ import lombok.*;
 @Builder
 public class Ranking {
     @EmbeddedId
-    @Column(unique = true)
     private RankingKey id;
 
     @NotBlank(message = "Rank cannot be null")

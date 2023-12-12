@@ -1,10 +1,6 @@
 package com.example.aftas.DTO;
 
 import com.example.aftas.model.enums.IdentityDocumentType;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Size;
 
 import java.util.Date;
 

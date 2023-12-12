@@ -3,6 +3,8 @@ package com.example.aftas.service.Impl;
 import com.example.aftas.model.Member;
 import com.example.aftas.repository.MemberRepository;
 import com.example.aftas.service.MemberService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,11 @@ public class MemberServiceImpl implements MemberService {
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
+
+    @Override
+    public List<Member> findAll(Pageable pageable){
+        return memberRepository.findAll(pageable).stream().toList();
+    }
     @Override
     public Member getMemberById(Long id) {
         return memberRepository.findById(id).orElse(null);
@@ -26,13 +33,14 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Member> searchMember(String name) {
-        return memberRepository.findByName(name);
+    public List<Member> searchMember(String name, Pageable pageable) {
+        return memberRepository.findByName(name, pageable);
     }
 
     @Override
     public Member updateMember(Member member, Long id) {
         Member existingMember = getMemberById(id);
+
         existingMember.setName(member.getName());
         existingMember.setFamilyName(member.getFamilyName());
         existingMember.setAccessDate(member.getAccessDate());

@@ -30,7 +30,7 @@ public class Member{
     @Size(min = 2, max = 50, message = "Family name must be between 2 and 50 characters")
     private String familyName;
 
-    @NotBlank(message = "Access date cannot be null")
+    @NotNull(message = "Access date cannot be null")
     @PastOrPresent(message = "Access date must be in the past or present")
     @Temporal(TemporalType.DATE)
     private Date accessDate;
