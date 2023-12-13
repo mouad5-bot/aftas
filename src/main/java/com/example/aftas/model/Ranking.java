@@ -3,6 +3,7 @@ package com.example.aftas.model;
 import com.example.aftas.model.embeddedKey.RankingKey;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
@@ -15,15 +16,17 @@ public class Ranking {
     @EmbeddedId
     private RankingKey id;
 
-    @NotBlank(message = "Rank cannot be null")
-    private int rank;
+    @NotNull(message = "Rank cannot be null")
+    private Long rank;
 
-    @NotBlank(message = "Score cannot be null")
-    private int score;
+    @NotNull(message = "Score cannot be null")
+    private Long score;
 
     @ManyToOne
+    @MapsId("num")
     private Member member;
 
     @ManyToOne
+    @MapsId("code")
     private Competition competition;
 }

@@ -8,6 +8,7 @@ import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class Member{
     @NotNull(message = "Access date cannot be null")
     @PastOrPresent(message = "Access date must be in the past or present")
     @Temporal(TemporalType.DATE)
-    private Date accessDate;
+    private LocalDate accessDate;
 
     @NotBlank(message = "nationality cannot be null")
     private String nationality;
@@ -41,7 +42,7 @@ public class Member{
     @Enumerated(EnumType.STRING)
     private IdentityDocumentType identityDocumentType;
 
-    @NotBlank(message = "Identity number cannot be null")
+    @NotNull(message = "Identity number cannot be null")
     @Size(min = 2, max = 50, message = "Identity number must be between 2 and 50 characters")
     @Column(unique = true)
     private String identityNumber;

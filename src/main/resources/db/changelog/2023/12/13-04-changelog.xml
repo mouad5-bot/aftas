@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1702468837466-6" author="Youcode (generated)">
+        <dropColumn columnName="code" tableName="ranking"/>
+
+        <dropColumn columnName="num" tableName="ranking"/>
+    </changeSet>
+    <changeSet id="1702468837466-1" author="Youcode (generated)">
+        <addNotNullConstraint columnDataType="VARCHAR(255)" columnName="competition_code" tableName="ranking"
+                              validate="true"/>
+    </changeSet>
+    <changeSet id="1702468837466-2" author="Youcode (generated)">
+        <addNotNullConstraint columnDataType="BIGINT" columnName="member_num" tableName="ranking" validate="true"/>
+    </changeSet>
+    <changeSet id="1702468837466-4" author="Youcode (generated)">
+        <addPrimaryKey columnNames="competition_code, member_num" constraintName="pk_ranking" tableName="ranking"/>
+    </changeSet>
+
+</databaseChangeLog>

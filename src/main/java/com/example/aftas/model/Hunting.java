@@ -2,6 +2,7 @@ package com.example.aftas.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
@@ -16,8 +17,8 @@ public class Hunting {
     @Column(unique = true)
     private Long id;
 
-    @NotBlank(message = "Fish number cannot be null")
-    private int numberOfFish;
+    @NotNull(message = "Fish number cannot be null")
+    private Long numberOfFish;
 
     @ManyToOne
     private Competition competition;

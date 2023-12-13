@@ -2,8 +2,14 @@ package com.example.aftas.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import lombok.*;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -14,27 +20,25 @@ import java.util.List;
 @Builder
 public class Competition {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true)
     private String code;
 
-    @NotBlank(message = "Date cannot be null")
-    private String date;
+    @NotNull(message = "Date of competition cannot be null")
+    private LocalDate date;
 
-    @NotBlank(message = "Start date cannot be null")
-    private String startTime;
+    @NotNull(message = "Start time cannot be null")
+    private LocalTime startTime;
 
-    @NotBlank(message = "End date cannot be null")
-    private String endTime;
+    @NotNull(message = "End time cannot be null")
+    private LocalTime endTime;
 
-    @NotBlank(message = "Participants number cannot be null")
-    private int numberOfParticipants;
+    @NotNull(message = "Participants number cannot be null")
+    private Long numberOfParticipants;
 
     @NotBlank(message = "Location cannot be null")
     private String location;
 
-    @NotBlank(message = "Amount of fish cannot be null")
-    private int amountOfFish;
+    @NotNull(message = "Amount of fish cannot be null")
+    private Long amountOfFish;
 
 
     @OneToMany(mappedBy = "competition")

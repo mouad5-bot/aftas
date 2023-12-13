@@ -5,4 +5,8 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.7.xsd">
 
     <include file="db/changelog/2023/12/10-01-changelog.xml"/>
+    <include file="db/changelog/2023/12/13-01-changelog.xml"/>
+    <include file="db/changelog/2023/12/13-02-changelog.xml"/>
+    <include file="db/changelog/2023/12/13-03-changelog.xml"/>
+    <include file="db/changelog/2023/12/13-04-changelog.xml"/>
 </databaseChangeLog>

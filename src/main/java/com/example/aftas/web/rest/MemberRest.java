@@ -27,7 +27,7 @@ public class MemberRest {
     public ApiResponse<?> getAll(@ParameterObject Pageable pageable){
         List<Member> members = memberService.findAll(pageable);
         return ApiResponse
-                .success("the member is created successfully !", members);
+                .success("the member is retrieved successfully !", members);
     }
     @GetMapping("/{id}")
     public ApiResponse getMemberById(@PathVariable Long id) {
