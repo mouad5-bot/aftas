@@ -28,12 +28,12 @@ public class RankingServiceImpl implements RankingService {
     private final ModelMapper mapper;
     @Override
     public RankingDTO add(RankingDTO rankingDTO) throws Exception {
-        //checkDateOfParticipation(rankingDTO);
-        //search for competition
+
+        checkDateOfParticipation(rankingDTO);
+
         Competition competition = competitionRepository.findCompetitionByCode(rankingDTO.getCompetition_code());
-        Member member = memberRepository.findById(rankingDTO.getMember_id()).orElseThrow(() -> new Exception(" no member with this code "));
-        //serach for member
-        // create new object for Ranking
+        Member member = memberRepository.findById(rankingDTO.getMember_id()).orElseThrow(() -> new Exception(" no member with this number "));
+
         RankingKey rankingKey = RankingKey.builder()
                 .code(rankingDTO.getCompetition_code())
                 .num(rankingDTO.getMember_id())
@@ -45,19 +45,19 @@ public class RankingServiceImpl implements RankingService {
                 .competition(competition)
                 .member(member)
                 .build();
-       // Ranking ranking = mapper.map(rankingDTO, Ranking.class);
+
         Ranking saved = rankingRepository.save(ranking);
         return mapper.map(saved, RankingDTO.class);
     }
 
-    private void checkDateOfParticipation(Ranking ranking) {
+    private void checkDateOfParticipation(RankingDTO ranking) {
 
         LocalDate today = LocalDate.now();
         LocalDate competitionDate;
 
         if (ranking != null) {
 
-            String code = ranking.getId().getCode();
+            String code = ranking.getCompetition_code();
 
             Competition competition = competitionRepository.findCompetitionByCode(code);
 

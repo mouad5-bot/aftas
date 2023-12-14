@@ -1,5 +1,6 @@
 package com.example.aftas.service;
 
+import com.example.aftas.DTO.MemberDTO;
 import com.example.aftas.model.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,5 +13,5 @@ public interface MemberService {
     List<Member> searchMember(String name, Pageable pageable);
     Member updateMember(Member member, Long id);
     void deleteMember(Long id);
-    List<Member> findAll(Pageable pageable);
+    List<MemberDTO> findAll(Pageable pageable);
 }

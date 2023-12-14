@@ -1,5 +1,6 @@
 package com.example.aftas.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -18,16 +19,11 @@ public class Level {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true)
     private Long id;
-
-    @NotNull(message = "Level cannot be null")
     private Long level;
-
-    @NotBlank(message = "Description cannot be null")
     private String description;
-
-    @NotNull(message = "Points cannot be null")
     private Long points;
 
     @OneToMany(mappedBy = "level")
+    @JsonManagedReference
     private List<Fish> fishes;
 }

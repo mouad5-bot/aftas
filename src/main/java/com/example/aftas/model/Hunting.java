@@ -1,5 +1,6 @@
 package com.example.aftas.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -16,17 +17,18 @@ public class Hunting {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true)
     private Long id;
-
-    @NotNull(message = "Fish number cannot be null")
     private Long numberOfFish;
 
     @ManyToOne
+    @JsonBackReference
     private Competition competition;
 
     @ManyToOne
+    @JsonBackReference
     private Member member;
 
     @ManyToOne
+    @JsonBackReference
     private Fish fish;
 
 }

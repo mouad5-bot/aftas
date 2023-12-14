@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1702546872086-1" author="Youcode (generated)">
+        <dropNotNullConstraint columnDataType="bigint" columnName="amount_of_fish" tableName="competition"/>
+    </changeSet>
+    <changeSet id="1702546872086-2" author="Youcode (generated)">
+        <dropNotNullConstraint columnDataType="date" columnName="date" tableName="competition"/>
+    </changeSet>
+    <changeSet id="1702546872086-3" author="Youcode (generated)">
+        <dropNotNullConstraint columnDataType="time" columnName="end_time" tableName="competition"/>
+    </changeSet>
+    <changeSet id="1702546872086-4" author="Youcode (generated)">
+        <dropNotNullConstraint columnDataType="bigint" columnName="number_of_participants" tableName="competition"/>
+    </changeSet>
+    <changeSet id="1702546872086-5" author="Youcode (generated)">
+        <dropNotNullConstraint columnDataType="time" columnName="start_time" tableName="competition"/>
+    </changeSet>
+
+</databaseChangeLog>

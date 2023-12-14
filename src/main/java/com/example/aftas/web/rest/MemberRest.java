@@ -1,5 +1,6 @@
 package com.example.aftas.web.rest;
 
+import com.example.aftas.DTO.MemberDTO;
 import com.example.aftas.handler.response.ApiResponse;
 import com.example.aftas.model.Member;
 import com.example.aftas.service.MemberService;
@@ -8,9 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springdoc.api.annotations.ParameterObject;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +23,8 @@ public class MemberRest {
     Logger logger = LoggerFactory.getLogger(MemberRest.class);
 
     @GetMapping("/all")
-    public ApiResponse<?> getAll(@ParameterObject Pageable pageable){
-        List<Member> members = memberService.findAll(pageable);
+    public ApiResponse<List<MemberDTO>> getAll(@ParameterObject Pageable pageable){
+        List<MemberDTO> members = memberService.findAll(pageable);
         return ApiResponse
                 .success("the member is retrieved successfully !", members);
     }
@@ -40,7 +39,7 @@ public class MemberRest {
         }
     }
 
-    @PostMapping("/add")
+    @PostMapping(value = "/add")
     public ApiResponse addMember(@Valid @RequestBody Member member) {
         try {
 

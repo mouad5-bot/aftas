@@ -1,6 +1,7 @@
 package com.example.aftas.model;
 
 import com.example.aftas.model.embeddedKey.RankingKey;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -15,18 +16,16 @@ import lombok.*;
 public class Ranking {
     @EmbeddedId
     private RankingKey id;
-
-    @NotNull(message = "Rank cannot be null")
     private Long rank;
-
-    @NotNull(message = "Score cannot be null")
     private Long score;
 
     @ManyToOne
     @MapsId("num")
+    @JsonBackReference
     private Member member;
 
     @ManyToOne
     @MapsId("code")
+    @JsonBackReference
     private Competition competition;
 }

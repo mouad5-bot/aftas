@@ -1,14 +1,17 @@
 package com.example.aftas.web.rest;
 
+import com.example.aftas.DTO.CompetitionDTO;
 import com.example.aftas.handler.response.ApiResponse;
 import com.example.aftas.model.Competition;
 import com.example.aftas.service.CompetitionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,14 +23,15 @@ import java.util.List;
 public class CompetitionRest {
 
     private final CompetitionService competitionService;
+    private final ModelMapper modelMapper;
     private Logger logger = LoggerFactory.getLogger(CompetitionRest.class);
 
-    @PostMapping("add")
-    public ResponseEntity<ApiResponse<Competition>> save(@Valid @RequestBody Competition competition){
+    @PostMapping(value = "add")
+    public ResponseEntity<ApiResponse<Competition>> save(@Valid @RequestBody CompetitionDTO competitionDTO){
 
         try {
 
-            Competition competitionObject = competitionService.add(competition);
+            Competition competitionObject = competitionService.add(modelMapper.map(competitionDTO, Competition.class));
 
             if(competitionObject == null){
 
@@ -50,7 +54,6 @@ public class CompetitionRest {
                             .badRequest(e.getMessage())
             );
         }
-
     }
     @GetMapping("getAll")
     public ApiResponse<List<Competition>> findAll(@ParameterObject Pageable pageable){
