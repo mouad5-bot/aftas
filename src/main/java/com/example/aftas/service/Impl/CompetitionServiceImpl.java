@@ -23,16 +23,32 @@ public class CompetitionServiceImpl implements CompetitionService {
     @Override
     public Competition add(Competition competition) throws IllegalArgumentException {
         validationDate(competition);
+
+        LocalDate date = competition.getDate();
+
+        String firstThreeChars = competition.getLocation().substring(0, 3);
+        String code = firstThreeChars + "-" + date;
+
+        competition.setCode(code);
+
         return competitionRepository.save(competition);
     }
+
     private void validationDate(Competition newCompetition) {
         LocalDate newCompetitionDate = newCompetition.getDate();
 
         Optional<Competition> competitionsOnSameDay = competitionRepository.findByDate(newCompetitionDate);
 
         if (competitionsOnSameDay.isPresent()){
-            throw new IllegalArgumentException("You can have just one competition on the day.");
+            throw new IllegalArgumentException("You can have just one competition on the day !");
         }
+        if (newCompetitionDate.isBefore(LocalDate.now())){
+            throw new IllegalArgumentException("You can't create a competition in the past !" );
+        }
+        if (newCompetitionDate.isBefore(LocalDate.now().plusDays(2))) {
+            throw new IllegalArgumentException("The competition must be created two days before it starts");
+        }
+
     }
 
     @Override

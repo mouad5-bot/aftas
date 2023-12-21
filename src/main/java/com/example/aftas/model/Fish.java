@@ -19,9 +19,11 @@ import java.util.List;
 public class Fish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true)
     private Long id;
+
+    @Column(unique = true)
     private String name;
+
     private double averageWeight;
 
     @OneToMany(mappedBy = "fish")

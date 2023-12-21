@@ -1,6 +1,7 @@
 package com.example.aftas.service.Impl;
 
 import com.example.aftas.DTO.RankingDTO;
+import com.example.aftas.DTO.mapper.RankingMapper;
 import com.example.aftas.model.Competition;
 import com.example.aftas.model.Member;
 import com.example.aftas.model.Ranking;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -47,7 +49,12 @@ public class RankingServiceImpl implements RankingService {
                 .build();
 
         Ranking saved = rankingRepository.save(ranking);
-        return mapper.map(saved, RankingDTO.class);
+        return RankingDTO.builder()
+                .member_id(saved.getMember().getNum())
+                .competition_code(saved.getCompetition().getCode())
+                .score(saved.getScore())
+                .rank(saved.getRank())
+                .build();
     }
 
     private void checkDateOfParticipation(RankingDTO ranking) {
@@ -77,7 +84,11 @@ public class RankingServiceImpl implements RankingService {
 
 
     @Override
-    public List<Ranking> getAll(Pageable pageable) {
-        return null;
+    public List<RankingDTO> getAll(Pageable pageable) {
+        List<Ranking> rankingList = rankingRepository.findAll();
+        return rankingList.
+                    stream().
+                    map((element) -> RankingMapper.toDto(element))
+                    .toList();
     }
 }

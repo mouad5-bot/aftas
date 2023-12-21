@@ -6,6 +6,7 @@ import com.example.aftas.model.Member;
 import com.example.aftas.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springdoc.api.annotations.ParameterObject;
@@ -20,6 +21,7 @@ import java.util.List;
 public class MemberRest {
     
     private final MemberService memberService;
+    private final ModelMapper modelMapper;
     Logger logger = LoggerFactory.getLogger(MemberRest.class);
 
     @GetMapping("/all")
@@ -40,10 +42,10 @@ public class MemberRest {
     }
 
     @PostMapping(value = "/add")
-    public ApiResponse addMember(@Valid @RequestBody Member member) {
+    public ApiResponse addMember(@Valid @RequestBody MemberDTO member) {
         try {
 
-            Member memberObject = memberService.addMember(member);
+            Member memberObject = memberService.addMember(modelMapper.map(member, Member.class));
 
             if(memberObject == null) {
 

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface RankingService {
     RankingDTO add(RankingDTO ranking) throws Exception;
-    List<Ranking> getAll(Pageable pageable);
+    List<RankingDTO> getAll(Pageable pageable);
 }
