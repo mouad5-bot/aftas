@@ -1,7 +1,7 @@
 package com.example.aftas.web.rest;
 
 
-import com.example.aftas.DTO.HuntingDTO;
+import com.example.aftas.DTO.HuntingDTORequest;
 import com.example.aftas.DTO.SaveHuntDTO;
 import com.example.aftas.handler.response.ApiResponse;
 import com.example.aftas.model.Hunting;
@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -59,17 +60,18 @@ public class HuntingRest {
     }
 
     @GetMapping("all")
-    public ApiResponse<List<HuntingDTO>> findAll(@ParameterObject Pageable pageable){
+    public ApiResponse<List<HuntingDTORequest>> findAll(@ParameterObject Pageable pageable){
 
-        List<HuntingDTO> huntingDTOList = huntingService.findAll(pageable);
+        List<HuntingDTORequest> hunting = huntingService.findAll(pageable);
 
-        if (huntingDTOList == null){
+        if (hunting == null){
             return ApiResponse
                     .notFound("Not found any hunting");
         }else {
             return ApiResponse
-                    .success("The hunts has retrieved successfully", huntingDTOList);
+                    .success("The hunts has retrieved successfully", hunting);
         }
 
     }
+
 }

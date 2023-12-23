@@ -28,11 +28,10 @@ public class RankingServiceImpl implements RankingService {
     private final CompetitionRepository competitionRepository;
     private final MemberRepository memberRepository;
     private final ModelMapper mapper;
+
     @Override
     public RankingDTO add(RankingDTO rankingDTO) throws Exception {
-
         checkDateOfParticipation(rankingDTO);
-
         Competition competition = competitionRepository.findCompetitionByCode(rankingDTO.getCompetition_code());
         Member member = memberRepository.findById(rankingDTO.getMember_id()).orElseThrow(() -> new Exception(" no member with this number "));
 

@@ -1,25 +1,21 @@
 package com.example.aftas.service.Impl;
 
-import com.example.aftas.DTO.HuntingDTO;
-import com.example.aftas.DTO.MemberDTO;
-import com.example.aftas.DTO.RankingDTO;
+import com.example.aftas.DTO.HuntingDTORequest;
 import com.example.aftas.DTO.SaveHuntDTO;
-import com.example.aftas.DTO.mapper.RankingMapper;
 import com.example.aftas.model.*;
 import com.example.aftas.repository.CompetitionRepository;
 import com.example.aftas.repository.FishRepository;
 import com.example.aftas.repository.HuntingRepository;
 import com.example.aftas.repository.MemberRepository;
-import com.example.aftas.service.CompetitionService;
 import com.example.aftas.service.HuntingService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -82,13 +78,23 @@ public class HuntingServiceImpl implements HuntingService {
     }
 
     @Override
-    public List<HuntingDTO> findAll(Pageable pageable){
+    public List<HuntingDTORequest> findAll(Pageable pageable){
 
         List<Hunting> huntingList = huntingRepository.findAll(pageable).stream().toList();
 
         return huntingList
                 .stream()
-                .map((element) -> mapper.map(element, HuntingDTO.class))
+                .map(
+                        hunting -> {
+                            return HuntingDTORequest.builder()
+                                    .memberName(hunting.getMember().getName() + " " + hunting.getMember().getFamilyName())
+                                    .competitionCode(hunting.getCompetition().getCode())
+                                    .numberOfFish(hunting.getNumberOfFish())
+                                    .build();
+                        }
+                )
                 .toList();
     }
+
+
 }
